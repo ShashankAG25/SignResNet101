@@ -1,26 +1,47 @@
 #  source
 # https://towardsdatascience.com/object-localization-using-pre-trained-cnn-models-such-as-mobilenet-resnet-xception-f8a5f6a0228d
+# https://github.com/1297rohit/RCNN/blob/master/RCNN.ipynb
 
-
-from collections import namedtuple
-import csv
-import tensorflow as tf
-from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input
-from tensorflow.keras import backend as K
-from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout, Flatten
-from tensorflow.keras.models import Model, Sequential
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.utils import to_categorical
+import os, cv2, keras
+import pandas as pd
 import matplotlib.pyplot as plt
-import matplotlib.patches as patches
 import numpy as np
-import os
-# import the necessary packages
-from collections import namedtuple
-import numpy as np
-import cv2
-# define the `Detection` object for IOU(
-Detection = namedtuple("Detection", ["image_path", "gt", "pred"])
-from PIL import Image, ImageOps
-# importing XML parsing library for parsing the data
-import xml.etree.ElementTree as ET
+import tensorflow as tf
+
+path = "sign_crop/"
+# annot = "sign/label/"
+
+train_images=[]
+train_labels = []
+
+for e, i in enumerate(os.listdir(path)):
+        img = cv2.imread(os.path.join(path,i))
+        resized = cv2.resize(img, (224, 224), interpolation=cv2.INTER_AREA)
+        train_images.append(resized)
+        train_labels.append(1)
+        # df = pd.read_csv(os.path.join(annot, i))
+        # gtvalues = []
+        # for row in df.iterrows():
+        #     x1 = int(row[1][0].split(" ")[0])
+        #     y1 = int(row[1][0].split(" ")[1])
+        #     x2 = int(row[1][0].split(" ")[2])
+        #     y2 = int(row[1][0].split(" ")[3])
+        #     gtvalues.append({"x1": x1, "x2": x2, "y1": y1, "y2": y2})
+        # ss.setBaseImage(image)
+        # ss.switchToSelectiveSearchFast()
+        # # ssresults = ss.process()
+        # imout = image.copy()
+        # for gtval in gtvalues:
+        #             x, y, w, h = gtval.values()
+        #             timage = imout[y:y + h, x:x + w]
+        #             # resized = cv2.resize(timage, (224, 224), interpolation=cv2.INTER_AREA)
+        #             train_images.append(timagem12
+        #                                 )
+        #             train_labels.append(1)
+        #             flag = 1
+
+X_new = np.array(train_images)
+y_new = np.array(train_labels)
+
+np.save("x_new",X_new)
+np.save("y_new",y_new)
