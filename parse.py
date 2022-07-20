@@ -31,9 +31,10 @@ def xml_to_csv(path):
 
 
 def main():
-    image_path = "SPODS/labels_xml"
+    image_path = "SPODS/labels_xml/"
+    # out_path = "Sign_RCNN_sajida/labels_csv/"
     xml_df = xml_to_csv(image_path)
-    xml_df.to_csv('1.csv', index=None)
+    # xml_df.to_csv('1.csv', index=None)
     print('Successfully converted xml to csv.')
 
 
